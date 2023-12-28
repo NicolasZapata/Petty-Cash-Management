@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <data>
+  
+    <!-- Tree View -->
+    <record id="view_petty_cash_management_tree" model="ir.ui.view">
+        <field name="name">petty.cash.management.tree</field>
+        <field name="model">petty.cash.management</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="responsable_id"/>
+                <field name="cash_amount"/>
+                <field name="date_opened"/>
+                <field name="date_closed"/>
+                <field name="refund_account_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="view_petty_cash_management_kanban" model="ir.ui.view">
+        <field name="name">petty.cash.management.kanban</field>
+        <field name="model">petty.cash.management</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="responsable_id"/>
+                <field name="cash_amount"/>
+                <field name="date_opened"/>
+                <field name="date_closed"/>
+                <field name="refund_account_id"/>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_petty_cash_management_form" model="ir.ui.view">
+        <field name="name">petty.cash.management.form</field>
+        <field name="model">petty.cash.management</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="responsable_id"/>
+                    <field name="cash_amount"/>
+                    <field name="cash_notes"/>
+                    <field name="date_opened"/>
+                    <field name="date_closed"/>
+                    <field name="refund_account_id"/>
+                    <!-- Add other fields as needed -->
+                </group>
+            </form>
+        </field>
+    </record>
+
+      <!-- Menu Action for the Tree View -->
+      <record id="action_petty_cash_management_tree" model="ir.actions.act_window">
+          <field name="name">Petty Cash Management</field>
+          <field name="res_model">petty.cash.management</field>
+          <field name="view_mode">kanban,tree,form</field>
+      </record>
+
+      <!-- Menu for the Tree View -->
+      <menuitem 
+        id="menu_petty_cash_management_tree" 
+        name="Petty Cash Management"
+        parent="hr_expense.menu_hr_expense_my_expenses" 
+        action="action_petty_cash_management_tree"/>
+
+  
+  </data>
+  
+
+</odoo>
