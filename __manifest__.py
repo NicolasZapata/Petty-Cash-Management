@@ -14,7 +14,8 @@
   ],
   'data': [
     'views/petty_cash_view.xml',
-    'security/ir.model.access.csv'
+    'security/ir.model.access.csv',
+    # 'views/assets.xml',
   ],
   # 'demo': [
   #   ''
