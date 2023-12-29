@@ -5,5 +5,5 @@ class HREXpense(models.Model):
   _inherit = 'hr.expense'
   _description = 'HRExpense'
   
-  petty_cash_management_id = fields.Many2one('petty.cash.management', string='Petty Cash Management')
+  petty_cash_management_id = fields.Many2one('petty.cash.management', string='Petty Cash Management', required='True')
   

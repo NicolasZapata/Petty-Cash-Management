@@ -6,6 +6,7 @@ class PettyCashManagement(models.Model):
       _name = 'petty.cash.management'
       _description = 'PettyCash'
       
+      name=fields.Char(string='Petty Cash Management')
       responsable_id = fields.Many2one('hr.employee', string='responsable')
       cash_amount = fields.Float(string='cash_amount')
       cash_notes = fields.Html(string='cash_notes')
