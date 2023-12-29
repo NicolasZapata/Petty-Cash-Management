@@ -16,7 +16,6 @@
     'views/petty_cash_view.xml',
     'security/ir.model.access.csv',
     'views/hr_expense_views.xml',
-    # 'views/assets.xml',
   ],
   # 'demo': [
   #   ''
@@ -24,6 +23,8 @@
   'auto_install': False,
   'application': False,
   'assets': {
-    
+    'web.assets_backend': [
+      'petty_cash_management/static/src/scss/petty_cash.scss'
+    ]
   }
 }
