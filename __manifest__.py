@@ -15,6 +15,7 @@
   'data': [
     'views/petty_cash_view.xml',
     'security/ir.model.access.csv',
+    'views/hr_expense_views.xml',
     # 'views/assets.xml',
   ],
   # 'demo': [
