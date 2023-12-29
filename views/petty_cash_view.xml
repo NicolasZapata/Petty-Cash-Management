@@ -58,8 +58,7 @@
                                     <field name="validation_expenses"/>
                                     <field name="expense_to_report"/>
                                     <field name="expenses_to_reimburse"/>
-                                    <field name="cash_on_hand"/>
-                                    <field name="total" readonly="1"/>
+                                    <field name="cash_on_hand" readonly="1"/>
                                 </group>
                             </page>
                             <page name="notes"  string="Cash Notes">
