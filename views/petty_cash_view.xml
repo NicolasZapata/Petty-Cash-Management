@@ -84,8 +84,8 @@
                             <page name="resumen"  string="resumen">
                                 <group>
                                     <field name="cash_amount"/>
-                                    <field name="validation_expenses"/>
                                     <field name="expense_to_report"/>
+                                    <field name="validation_expenses"/>
                                     <field name="expenses_to_reimburse"/>
                                     <field name="cash_on_hand" readonly="1"/>
                                 </group>
