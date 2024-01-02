@@ -13,9 +13,11 @@
     'account'
   ],
   'data': [
+    # Views
     'views/petty_cash_view.xml',
-    'security/ir.model.access.csv',
     'views/hr_expense_views.xml',
+    # Security
+    'security/ir.model.access.csv',
   ],
   # 'demo': [
   #   ''

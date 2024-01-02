@@ -18,12 +18,25 @@ class PettyCashManagement(models.Model):
       expenses_to_reimburse = fields.Float(string='Expenses to reimburse')
       cash_on_hand = fields.Float(compute="_total_cash_amount", string='Cash on hand')
 
+      petty_cash_states = fields.Selection([
+            ('draft', 'draft'),
+            ('open', 'open'),
+            ('closed', 'closed')
+      ], string='Petty Cash States')
+
       @api.depends('validation_expenses', 'expenses_to_reimburse')
+      @api.onchange('cash_amount')
       def _compute_expense_to_report(self):
             for record in self:
                   draft_expenses = (record.expense_ids.filtered(lambda expense: expense.state == 'draft'))
                   record.expense_to_report = sum(draft_expenses.mapped('total_amount'))
 
       @api.depends('expense_to_report', 'validation_expenses')
+      @api.onchange('cash_amount')
       def _total_cash_amount(self):
-            self.cash_on_hand = self.cash_amount - self.expense_to_report - self.validation_expenses - self.expense_to_report - self.expenses_to_reimburse
+            self.cash_on_hand = self.cash_amount - self.expense_to_report \
+            - self.validation_expenses - self.expense_to_report \
+            - self.expenses_to_reimburse
+
+      def _open_my_expenses():
+            return {'type': 'ir.actions.act_window_close'}

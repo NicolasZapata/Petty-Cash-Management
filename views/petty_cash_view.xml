@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+        <!-- Inherit -->
+        <!-- <record id="view_hr_expense_sheet_form_inherit" model="model_name">
+            <field name="name">petty_cash_management.view_hr_expense_sheet_form</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="view_hr_expense_sheet_form"></field>
+            <xpath expr="//button[@name='action_get_expense_view']" position="after">
+                <button name="_open_my_expenses"
+                    string="My Expenses"
+                    class="oe_stat_button"
+                    icon="fa-file-text-o"
+                    type="object"
+                    attrs="{'invisible': [('expense_number', '=', 0)]}">
+                    <field name="expense_number" widget="statinfo" string="Expenses"/>
+                </button>
+            </xpath>
+        </record> -->
+        
         <!-- Tree View -->
         <record id="view_petty_cash_management_tree" model="ir.ui.view">
             <field name="name">petty.cash.management.tree</field>
@@ -22,6 +40,16 @@
             <field name="name">petty.cash.management.kanban</field>
             <field name="model">petty.cash.management</field>
             <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_get_expense_view']" position="after">
+                    <button name="_open_my_expenses"
+                        string="My Expenses"
+                        class="oe_stat_button"
+                        icon="fa-file-text-o"
+                        type="object"
+                        attrs="{'invisible': [('expense_number', '=', 0)]}">
+                        <field name="expense_number" widget="statinfo" string="Expenses"/>
+                    </button>
+                </xpath>
                 <kanban>
                     <field name="name" />
                     <field name="responsable_id" />
@@ -38,6 +66,7 @@
             <field name="name">petty.cash.management.form</field>
             <field name="model">petty.cash.management</field>
             <field name="arch" type="xml">
+            <field name="petty_cash_states" widget="statusbar" statusbar_visible="draft,open,closed"/>       
                 <form>
                     <sheet>
                         <group>
