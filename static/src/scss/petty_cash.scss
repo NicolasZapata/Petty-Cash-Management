@@ -8,3 +8,8 @@ $cash_amount_limit: 0;
   color: $positive;
 }
 
+.o_field_widget[name="cash_amount"] {
+  font-size: 16px;
+  margin-top: 10px;
+  color: $negative;
+}
