@@ -40,37 +40,48 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <field name="petty_cash_states" widget="statusbar" statusbar_visible="draft,open,closed" default="draft"/>
+                        <button name="btnDraftPettyCash" string="Borrador" type="object"
+                            petty_cash_states="open,closed" />
+                        <button name="btnOpenPettyCash" string="Validar" type="object"
+                            petty_cash_states="draft,closed" />
+                        <button name="btnClosePettyCash" string="Cerrar Caja Menor" type="object"
+                            petty_cash_states="draft,open" />
+                        <field name="petty_cash_states" widget="statusbar"
+                            statusbar_visible="draft,open,closed" default="draft" />
                     </header>
                     <sheet>
                         <group>
                             <group>
-                                <field name="name"/>
-                                <field name="responsable_id"/>
+                                <field name="name" />
+                                <field name="responsable_id" />
                             </group>
                             <group>
-                                <field name="date_opened"/>
-                                <field name="date_closed"/>
-                                <field name="refund_account_id"/>
+                                <field name="date_opened" />
+                                <field name="date_closed" />
+                                <field name="refund_account_id" />
                             </group>
                         </group>
                         <notebook>
                             <page name="resumen" string="resumen">
                                 <group>
-                                    <field name="cash_amount"/>
-                                    <field name="expense_to_report"/>
-                                    <field name="expenses_to_approve"/>
-                                    <field name="expenses_to_reimburse"/>
-                                    <field name="cash_on_hand" readonly="1"/>
+                                    <field name="cash_amount" />
+                                    <field name="expense_to_report" />
+                                    <field name="expenses_to_approve" />
+                                    <field name="expenses_to_reimburse" />
+                                    <field name="cash_on_hand" readonly="1" />
                                 </group>
                             </page>
-                            <page name="notes"  string="Cash Notes">
+                            <page name="notes" string="Cash Notes">
                                 <group>
-                                    <field name="cash_notes" placeholder="Cash Notes"/>
+                                    <field name="cash_notes" placeholder="Cash Notes" />
                                 </group>
-                        </page>
+                            </page>
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
                 </form>
             </field>
         </record>

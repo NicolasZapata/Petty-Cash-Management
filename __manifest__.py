@@ -10,7 +10,8 @@
   'depends': [
     'hr',
     'hr_expense',
-    'account'
+    'account',
+    'mail'
   ],
   'data': [
     # Views
