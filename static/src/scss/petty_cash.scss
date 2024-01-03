@@ -7,3 +7,8 @@ $cash_amount_limit: 0;
   // margin-top: 10px;
   color: $positive;
 }
+
+.o_field_widget[name="petty_cash_management_id"] {
+ width: 40%;
+ font-size: small;
+}
