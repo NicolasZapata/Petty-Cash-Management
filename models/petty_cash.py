@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError, UserError
 class PettyCashManagement(models.Model):
       _name = 'petty.cash.management'
       _description = 'PettyCash'
+      # _inherit = 'hr.expense'
       
       name = fields.Char(string='Petty Cash Management')
       responsable_id = fields.Many2one('hr.employee', string='responsable')
@@ -14,6 +15,8 @@ class PettyCashManagement(models.Model):
       refund_account_id = fields.Many2one('account.account', string='refund_account')
       expense_ids = fields.One2many('hr.expense','petty_cash_management_id', string='Expenses')
       expense_to_report = fields.Float(string='Expense to Report', compute='_compute_expense_to_report', readonly='True', store='True')
+      # expense_to_draft = fields.Float(string='Expense to Draft', compute='_compute_expense_to_draft', readonly='True', store='True')
+      # expense_to_approve = fields.Float(string='Expense to Approve', compute='_compute_expense_to_approved', readonly='True', store='True')
       validation_expenses = fields.Float(string='Validation Expenses')
       expenses_to_reimburse = fields.Float(string='Expenses to reimburse')
       cash_on_hand = fields.Float(compute="_total_cash_amount", string='Cash on hand')
@@ -24,33 +27,23 @@ class PettyCashManagement(models.Model):
             ('closed', 'closed')
       ], string='Petty Cash States')
 
-      @api.depends('expense_to_report', 'validation_expenses')
       @api.onchange('cash_on_hand')
       def _total_cash_amount(self):
-            self.cash_on_hand = self.cash_amount - self.expense_to_report \
-            - self.validation_expenses - self.expense_to_report \
-            - self.expenses_to_reimburse
+            self.cash_on_hand = self.cash_amount - self.expense_to_report - self.validation_expenses \
+                  - self.expense_to_report - self.expenses_to_reimburse
 
-      @api.depends('validation_expenses', 'expenses_to_reimburse')
+      # COMPUTE METHODS
       def _compute_expense_to_report(self):
             for record in self:
-                  draft_expenses = (record.expense_ids.filtered(
-                        lambda expense: expense.state == 'draft'
-                  ))
-                  record.expense_to_report = sum(draft_expenses.mapped('total_amount'))
+                  report_expenses = (record.expense_ids.filtered(lambda expense: expense.state == 'report'))
+                  record.expense_to_report = sum(report_expenses.mapped('total_amount'))
 
-      @api.depends('validation_expenses', 'expenses_to_reimburse')
-      def _draft_expense_to_report(self):
-            for record in self:
-                  draft_expenses = (record.expense_ids.filtered(
-                        lambda expense: expense.state == 'reported'
-                  ))
-                  record.expense_to_report = sum(draft_expenses.mapped('total_amount'))
+      # def _compute_expense_to_draft(self):
+      #       for record in self:
+      #             draft_expenses = (record.expense_ids.filtered(lambda expense: expense.state == 'draft'))
+      #             record.expense_to_draft = sum(draft_expenses.mapped('amount_tax'))
 
-      @api.depends('validation_expenses', 'expenses_to_reimburse')
-      def _draft_expense_to_report(self):
-            for record in self:
-                  draft_expenses = (record.expense_ids.filtered(
-                        lambda expense: expense.state == 'approved'
-                  ))
-                  record.expense_to_report = sum(draft_expenses.mapped('total_amount'))                 
+      # def _compute_expense_to_approved(self):
+      #       for record in self:
+      #             approve_expenses = (record.expense_ids.filtered(lambda expense: expense.state == 'approved'))
+      #             record.expense_to_approve = sum(approve_expenses.mapped('total_amount'))                 
