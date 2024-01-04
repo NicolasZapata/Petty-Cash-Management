@@ -67,7 +67,9 @@
                                 class="oe_stat_button"
                                 string="Expenses"
                                 icon="fa-file-text-o"
-                                type="object"/>
+                                type="object">
+                                <!-- <field name="" /> -->
+                            </button>
                         </div>
                         <group>
                             <group>

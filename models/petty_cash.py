@@ -44,8 +44,8 @@ class PettyCashManagement(models.Model):
                   'name': _('Expenses'),
                   'type': 'ir.actions.act_window',
                   'view_mode': 'list,form',
-                  'res_model': 'petty.cash.management',
-                  'domain': [('id', 'in', self.expense_ids)],
+                  'res_model': 'hr.expense'
+                  # 'domain': [('id', 'in', self.expense_line_ids.ids)],
             }
 
       # COMPUTE METHODS
