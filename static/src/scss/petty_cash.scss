@@ -12,3 +12,17 @@ $cash_amount_limit: 0;
  width: 40%;
  font-size: small;
 }
+
+.o_list_renderer .o_list_table tbody > tr > td[name="petty_cash_states"] {
+    &.draft {
+        color: blue;
+    }
+
+    &.closed {
+        color: green;
+    }
+
+    &.open {
+        color: red;
+    }
+}

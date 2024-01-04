@@ -19,7 +19,6 @@ class PettyCashManagement(models.Model):
       expenses_to_approve = fields.Float(string='Expenses to validate', compute='_compute_expenses_to_approve', readonly='True', store='True')
       expenses_to_reimburse = fields.Float(string='Expenses to reimburse', compute='_compute_expense_to_reimburse', readonly='True', store='True')
       cash_on_hand = fields.Float(compute="_total_cash_amount", string='Cash on hand', tracking=True)
-
       expenses_to_approve = fields.Float(string='Expense to Approve', compute='_compute_expenses_to_approve', readonly='True', store='True')
 
       petty_cash_states = fields.Selection([
@@ -38,16 +37,27 @@ class PettyCashManagement(models.Model):
       def btnClosePettyCash(self):
             self.petty_cash_states = 'closed'
 
-      # Smart Button
+      # Smart Buttons
       def action_open_expenses_view(self):
             self.ensure_one()
             return {
                   'name': _('Expenses'),
                   'type': 'ir.actions.act_window',
                   'view_mode': 'list,form',
-                  'res_model': 'hr.expense'
-                  # 'domain': [('id', 'in', self.expense_line_ids.ids)],
+                  'res_model': 'hr.expense',
+                  'domain': [('id', 'in', self.expense_ids.mapped('id'))],
             }
+
+      def action_open_expenses_reports(self):
+            self.ensure_one()
+            return {
+                  'name': _('Expenses'),
+                  'type': 'ir.actions.act_window',
+                  'view_mode': 'list,form',
+                  'res_model': 'hr.expense',
+                  'domain': [('id', 'in', self.expense_ids.mapped('id'))],
+            }
+
 
       # COMPUTE METHODS
       #Expenses to report state is in draft
@@ -80,10 +90,10 @@ class PettyCashManagement(models.Model):
                   ))
                   record.expenses_to_reimburse = sum(reimburse_expenses.mapped('total_amount'))
 
+      # Operation in Cash on hands
       @api.depends('expense_ids', 'expense_ids.state', 'expense_ids.total_amount')
       def _total_cash_amount(self):
             self.cash_on_hand = (self.cash_amount \
                                  - self.expense_to_report \
                                  - self.expenses_to_approve \
                                  - self.expenses_to_reimburse)
-

@@ -44,31 +44,38 @@
                 <form>
                     <header>
                         <button name="btnDraftPettyCash" string="Borrador" type="object"
-                            petty_cash_states="open,closed" 
+                            petty_cash_states="open,closed"
                             attrs="{
-                                'invisible': [('petty_cash_states', '==', 'draft')]
-                            }"/>
+                                'invisible': [
+                                    ('petty_cash_states', '==', 'draft')
+                                ]
+                            }" />
                         <button name="btnOpenPettyCash" string="Validar" type="object"
-                            petty_cash_states="draft,closed" 
+                            petty_cash_states="draft,closed"
                             attrs="{
                                 'invisible': [('petty_cash_states', '==', 'open')]
-                            }"/>
+                            }" />
                         <button name="btnClosePettyCash" string="Cerrar Caja Menor" type="object"
-                            petty_cash_states="draft,open" 
+                            petty_cash_states="draft,open"
                             attrs="{
                                 'invisible': [('petty_cash_states', '==', 'closed')]
-                            }"/>
+                            }" />
                         <field name="petty_cash_states" widget="statusbar"
                             statusbar_visible="draft,open,closed" default="draft" />
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
+                            <button name="action_open_expenses_reports"
+                                class="oe_stat_button"
+                                string="Reports"
+                                icon="fa-regular fa-flag"
+                                type="object">
+                            </button>
                             <button name="action_open_expenses_view"
                                 class="oe_stat_button"
                                 string="Expenses"
                                 icon="fa-file-text-o"
                                 type="object">
-                                <!-- <field name="" /> -->
                             </button>
                         </div>
                         <group>
@@ -77,24 +84,25 @@
                                 <field name="responsable_id" />
                             </group>
                             <group>
-                                <field name="date_opened" 
+                                <field name="date_opened"
                                     attrs="{
                                         'readonly': [('petty_cash_states', '!=', 'draft')]
-                                    }"/>
-                                <field name="date_closed" 
+                                    }" />
+                                <field name="date_closed"
                                     attrs="{
                                         'invisible': [('petty_cash_states', '!=', 'closed')], 
                                         'required': [('petty_cash_states', '==', 'closed')], 
                                         'readonly': [('petty_cash_states', '!=', 'closed')]
-                                    }"/>
-                                <field name="refund_account_id" 
-                                    attrs="{'readonly': [('petty_cash_states', '!=', 'draft')]}"/>
+                                    }" />
+                                <field name="refund_account_id"
+                                    attrs="{'readonly': [('petty_cash_states', '!=', 'draft')]}" />
                             </group>
                         </group>
                         <notebook>
                             <page name="resumen" string="resumen">
                                 <group>
-                                    <field name="cash_amount" attrs="{'readonly': [('petty_cash_states', '!=', 'draft')]}"/>
+                                    <field name="cash_amount"
+                                        attrs="{'readonly': [('petty_cash_states', '!=', 'draft')]}" />
                                     <field name="expense_to_report" />
                                     <field name="expenses_to_approve" />
                                     <field name="expenses_to_reimburse" />
@@ -103,15 +111,15 @@
                             </page>
                             <page name="notes" string="Cash Notes">
                                 <group>
-                                    <field name="cash_notes" placeholder="Cash Notes"  />
+                                    <field name="cash_notes" placeholder="Cash Notes" />
                                 </group>
                             </page>
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">
-                        <field name="message_follower_ids" widget="mail_followers"/>
-                        <field name="activity_ids" widget="mail_activity"/>
-                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
             </field>
@@ -125,11 +133,9 @@
         </record>
 
         <!-- Menu for the Tree View -->
-        <menuitem
-            id="menu_petty_cash_management_tree"
+        <menuitem id="menu_petty_cash_management_tree"
             name="Petty Cash Management"
             parent="hr_expense.menu_hr_expense_my_expenses"
-            action="action_petty_cash_management_tree"
-        />
+            action="action_petty_cash_management_tree"/>
     </data>
 </odoo>
