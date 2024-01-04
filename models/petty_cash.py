@@ -14,6 +14,7 @@ class PettyCashManagement(models.Model):
       date_opened = fields.Date(string='date opened', tracking=True)
       refund_account_id = fields.Many2one('account.account', string='refund_account')
       expense_ids = fields.One2many('hr.expense','petty_cash_management_id', string='Expenses')
+      expense_sheets_ids = fields.One2many('hr.expense.sheet','petty_cash_management_sheet_id', string='Expenses')
       expense_to_report = fields.Float(string='Expense to Report', compute='_compute_expense_to_report', readonly='True', store='True')
       expenses_to_approve = fields.Float(string='Expenses to validate', compute='_compute_expenses_to_approve', readonly='True', store='True')
       expenses_to_reimburse = fields.Float(string='Expenses to reimburse', compute='_compute_expense_to_reimburse', readonly='True', store='True')

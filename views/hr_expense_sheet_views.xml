@@ -1,0 +1,32 @@
+<odoo>
+  <!--Hr Expense Inherit Form View-->
+  <record id="hr_expense_sheet_form_view_inherit" model="ir.ui.view">
+    <field name="name">hr.expense.form.view.inherit</field>
+    <field name="model">hr.expense.sheet</field>
+    <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form" />
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//field[@name='user_id']" position="after">
+          <field name="petty_cash_management_sheet_id"
+            options="{'no_create_edit': True, 'no_create': True}"
+            attrs="{'readonly': [('state', '!=', 'draft')]}"
+            placeholder="Add Petty Cash"/>
+        </xpath>
+      </data>
+    </field>
+  </record>
+
+  <!--Hr Expense Inherit Tree View-->
+  <record id="hr_expense_sheet_tree_view_inherit" model="ir.ui.view">
+    <field name="name">hr.expense.tree.view.inherit</field>
+    <field name="model">hr.expense.sheet</field>
+    <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_dashboard_tree_header" />
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//field[@name='employee_id']" position="after">
+          <field name="petty_cash_management_sheet_id" />
+        </xpath>
+      </data>
+    </field>
+  </record>
+</odoo>

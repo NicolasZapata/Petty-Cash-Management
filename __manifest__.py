@@ -17,6 +17,7 @@
     # Views
     'views/petty_cash_view.xml',
     'views/hr_expense_views.xml',
+    'views/hr_expense_sheet_views.xml',
     # Security
     'security/ir.model.access.csv',
   ],
