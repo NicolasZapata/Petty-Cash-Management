@@ -8,8 +8,9 @@
       <data>
         <xpath expr="//field[@name='name']" position="after">
           <field name="petty_cash_management_id"
-            options="{'no_create_edit': True, 'no_create': True}"
-            placeholder="Agregar Caja Menor"/>
+                 options="{'no_create_edit': True, 'no_create': True}"
+                 attrs="{'readonly': [('state', '!=', 'draft')]}"
+                 placeholder="Add Petty Cash"/>
         </xpath>
       </data>
     </field>

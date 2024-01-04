@@ -12,6 +12,7 @@
                     <field name="cash_amount" />
                     <field name="date_opened" />
                     <field name="date_closed" />
+                    <field name="petty_cash_states" />
                     <field name="refund_account_id" />
                 </tree>
             </field>
@@ -23,12 +24,14 @@
             <field name="model">petty.cash.management</field>
             <field name="arch" type="xml">
                 <kanban>
-                    <field name="name" />
-                    <field name="responsable_id" />
-                    <field name="cash_amount" />
-                    <field name="date_opened" />
-                    <field name="date_closed" />
-                    <field name="refund_account_id" />
+                    <templates>
+                        <field name="name" />
+                        <field name="responsable_id" />
+                        <field name="cash_amount" />
+                        <field name="date_opened" />
+                        <field name="date_closed" />
+                        <field name="refund_account_id" />
+                    </templates>
                 </kanban>
             </field>
         </record>
@@ -56,15 +59,15 @@
                                 <field name="responsable_id" />
                             </group>
                             <group>
-                                <field name="date_opened" />
-                                <field name="date_closed" />
-                                <field name="refund_account_id" />
+                                <field name="date_opened" attrs="{'readonly': [('petty_cash_states', '!=', 'draft')]}"/>
+                                <field name="date_closed" attrs="{'invisible': [('petty_cash_states', '!=', 'closed')], 'required': [('petty_cash_states', '==', 'closed')], 'readonly': [('petty_cash_states', '!=', 'closed')]}"/>
+                                <field name="refund_account_id" attrs="{'readonly': [('petty_cash_states', '!=', 'draft')]}"/>
                             </group>
                         </group>
                         <notebook>
                             <page name="resumen" string="resumen">
                                 <group>
-                                    <field name="cash_amount" />
+                                    <field name="cash_amount" attrs="{'readonly': [('petty_cash_states', '!=', 'draft')]}"/>
                                     <field name="expense_to_report" />
                                     <field name="expenses_to_approve" />
                                     <field name="expenses_to_reimburse" />
@@ -73,7 +76,7 @@
                             </page>
                             <page name="notes" string="Cash Notes">
                                 <group>
-                                    <field name="cash_notes" placeholder="Cash Notes" />
+                                    <field name="cash_notes" placeholder="Cash Notes"  />
                                 </group>
                             </page>
                         </notebook>
