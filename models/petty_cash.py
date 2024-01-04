@@ -4,7 +4,7 @@ from odoo.exceptions import ValidationError, UserError
 class PettyCashManagement(models.Model):
       _name = 'petty.cash.management'
       _description = 'PettyCash'
-      _inherit = ['mail.thread']
+      _inherit = ['mail.thread', 'mail.activity.mixin']
 
       name = fields.Char(string='Petty Cash Management')
       responsable_id = fields.Many2one('hr.employee', string='responsable')
