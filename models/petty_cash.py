@@ -37,6 +37,17 @@ class PettyCashManagement(models.Model):
       def btnClosePettyCash(self):
             self.petty_cash_states = 'closed'
 
+      # Smart Button
+      def action_open_expenses_view(self):
+            self.ensure_one()
+            return {
+                  'name': _('Expenses'),
+                  'type': 'ir.actions.act_window',
+                  'view_mode': 'list,form',
+                  'res_model': 'petty.cash.management',
+                  'domain': [('id', 'in', self.expense_ids)],
+            }
+
       # COMPUTE METHODS
       #Expenses to report state is in draft
       @api.depends('expense_ids', 'expense_ids.state', 'expense_ids.total_amount')
@@ -44,7 +55,8 @@ class PettyCashManagement(models.Model):
             for record in self:
                   report_expenses = (record.expense_ids.filtered(
                         lambda expense: expense.state == 'draft' \
-                        and expense.petty_cash_management_id == record))
+                        and expense.petty_cash_management_id == record
+                  ))
                   record.expense_to_report = sum(report_expenses.mapped('total_amount'))
 
       #Expenses to approve state is in reported
