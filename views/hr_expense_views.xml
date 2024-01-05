@@ -6,6 +6,9 @@
     <field name="inherit_id" ref="hr_expense.hr_expense_view_form" />
     <field name="arch" type="xml">
       <data>
+        <xpath expr="//header" position="after">
+          <button string="Report Expense" name="action_ckeck_petty_cash_id" type="object" class="oe_highlight"/>
+        </xpath>
         <xpath expr="//field[@name='name']" position="after">
           <field name="petty_cash_management_id"
             options="{'no_create_edit': True, 'no_create': True}"
