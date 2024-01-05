@@ -65,6 +65,12 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
+                            <button name="action_generate_expense_invoice"
+                                class="oe_stat_button"
+                                string="Generate Expense Invoice"
+                                icon="fa-file-pdf-o"
+                                type="object">
+                            </button>
                             <button name="action_open_expenses_reports"
                                 class="oe_stat_button"
                                 string="Reports"
@@ -136,6 +142,6 @@
         <menuitem id="menu_petty_cash_management_tree"
             name="Petty Cash Management"
             parent="hr_expense.menu_hr_expense_my_expenses"
-            action="action_petty_cash_management_tree"/>
+            action="action_petty_cash_management_tree" />
     </data>
 </odoo>

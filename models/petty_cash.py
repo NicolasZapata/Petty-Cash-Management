@@ -50,14 +50,13 @@ class PettyCashManagement(models.Model):
 
       def action_open_expenses_reports(self):
             self.ensure_one()
-            return {
-                  'name': _('Expenses'),
-                  'type': 'ir.actions.act_window',
-                  'view_mode': 'list,form',
-                  'res_model': 'hr.expense',
-                  'domain': [('id', 'in', self.expense_ids.mapped('id'))],
-            }
+            action = self.env.ref('hr_expense.action_hr_expense_sheet_all').read()[0]
+            return action
 
+      def action_generate_expense_invoice(self):
+            self.ensure_one()
+            action = self.env.ref('hr_expense.action_report_hr_expense_sheet').read()[0]
+            return action
 
       # COMPUTE METHODS
       #Expenses to report state is in draft
