@@ -50,12 +50,12 @@
                                     ('petty_cash_states', '==', 'draft')
                                 ]
                             }" />
-                        <button name="btnOpenPettyCash" string="Validar" type="object"
+                        <button name="btnOpenPettyCash" string="Validate" type="object"
                             petty_cash_states="draft,closed"
                             attrs="{
                                 'invisible': [('petty_cash_states', '==', 'open')]
                             }" />
-                        <button name="btnClosePettyCash" string="Cerrar Caja Menor" type="object"
+                        <button name="btnClosePettyCash" string="Close" type="object"
                             petty_cash_states="draft,open"
                             attrs="{
                                 'invisible': [('petty_cash_states', '==', 'closed')]
@@ -79,16 +79,18 @@
                             </button>
                             <button name="action_open_expenses_view"
                                 class="oe_stat_button"
-                                string="Expenses"
                                 icon="fa-file-text-o"
                                 type="object">
+                                <field name="expenses_count" widget="statinfo"
+                                    string="Expenses" />
                             </button>
                         </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Petty Cash Management" />
+                            </h1>
+                        </div>
                         <group>
-                            <group>
-                                <field name="name" />
-                                <field name="responsable_id" />
-                            </group>
                             <group>
                                 <field name="date_opened"
                                     attrs="{
@@ -103,16 +105,23 @@
                                 <field name="refund_account_id"
                                     attrs="{'readonly': [('petty_cash_states', '!=', 'draft')]}" />
                             </group>
+                            <group>
+                                <field name="responsable_id" />
+                            </group>
                         </group>
                         <notebook>
                             <page name="resumen" string="resumen">
                                 <group>
-                                    <field name="cash_amount"
-                                        attrs="{'readonly': [('petty_cash_states', '!=', 'draft')]}" />
-                                    <field name="expense_to_report" />
-                                    <field name="expenses_to_approve" />
-                                    <field name="expenses_to_reimburse" />
-                                    <field name="cash_on_hand" readonly="1" />
+                                    <group>
+                                        <field name="cash_amount"
+                                            attrs="{'readonly': [('petty_cash_states', '!=', 'draft')]}" />
+                                        <field name="expense_to_report" />
+                                        <field name="expenses_to_approve" />
+                                    </group>
+                                    <group>
+                                        <field name="expenses_to_reimburse" />
+                                        <field name="cash_on_hand" readonly="1" />
+                                    </group>
                                 </group>
                             </page>
                             <page name="notes" string="Cash Notes">
