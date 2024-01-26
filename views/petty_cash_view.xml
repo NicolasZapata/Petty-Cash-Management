@@ -12,8 +12,15 @@
                     <field name="cash_amount" />
                     <field name="date_opened" />
                     <field name="date_closed" />
-                    <field name="petty_cash_states" />
+                    <field name="petty_cash_states"
+                        decoration-success="petty_cash_states == 'closed'"
+                        decoration-warning="petty_cash_states == 'open'"
+                        decoration-info="petty_cash_states == 'draft'"
+                        widget="badge"
+                        optional="show"
+                    />
                     <field name="refund_account_id" />
+                    <field name="activity_ids" widget="list_activity" optional="show" />
                 </tree>
             </field>
         </record>
@@ -25,12 +32,38 @@
             <field name="arch" type="xml">
                 <kanban>
                     <templates>
-                        <field name="name" />
-                        <field name="responsable_id" />
-                        <field name="cash_amount" />
-                        <field name="date_opened" />
-                        <field name="date_closed" />
-                        <field name="refund_account_id" />
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_content oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>
+                                            <field name="name" />
+                                        </strong>
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="float-right badge badge-secondary">
+                                            <field name="petty_cash_states"
+                                                decoration-success="petty_cash_states == 'closed'"
+                                                decoration-warning="petty_cash_states == 'open'"
+                                                decoration-info="petty_cash_states == 'draft'"
+                                                widget="badge"
+                                                optional="show"
+                                            />
+                                        </span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span>
+                                            <field name="date_opened" /> - <field name="date_closed" />
+                                        </span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span>
+                                            <field name="responsable_id" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
                     </templates>
                 </kanban>
             </field>
@@ -60,8 +93,10 @@
                             attrs="{
                                 'invisible': [('petty_cash_states', '==', 'closed')]
                             }" />
-                        <field name="petty_cash_states" widget="statusbar"
-                            statusbar_visible="draft,open,closed" default="draft" />
+                        <field name="petty_cash_states"
+                            widget="statusbar"
+                            statusbar_visible="draft,open,closed"
+                            default="draft" />
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
@@ -144,7 +179,7 @@
         <record id="action_petty_cash_management_tree" model="ir.actions.act_window">
             <field name="name">Petty Cash Management</field>
             <field name="res_model">petty.cash.management</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban,tree,form</field>
         </record>
 
         <!-- Menu for the Tree View -->
