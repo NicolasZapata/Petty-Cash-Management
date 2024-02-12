@@ -179,7 +179,7 @@
         <record id="action_petty_cash_management_tree" model="ir.actions.act_window">
             <field name="name">Petty Cash Management</field>
             <field name="res_model">petty.cash.management</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">tree,kanban,form</field>
         </record>
 
         <record id="view_expenses_tree" model="ir.ui.view">
