@@ -77,14 +77,16 @@ class PettyCashManagement(models.Model):
         """
         # Ensure there is only one record
         self.ensure_one()
-        
+
         # Return the action dictionary
         return {
             "name": _("Expenses"),  # Set the name of the action
             "type": "ir.actions.act_window",  # Set the type of action
             "view_mode": "list,form",  # Set the view modes
             "res_model": "hr.expense",  # Set the model for the action
-            "domain": [("id", "in", self.expense_ids.mapped("id"))],  # Set the domain filter
+            "domain": [
+                ("id", "in", self.expense_ids.ids)
+            ],  # Set the domain filter
         }
 
     def action_open_expenses_reports(self):
@@ -98,7 +100,7 @@ class PettyCashManagement(models.Model):
     def _compute_expenses_count(self):
         for rec in self:
             expenses_count = self.env["hr.expense"].search_count(
-                [("expense_ids", "=", rec.id)]
+                [("id", "=", rec.expense_ids.ids)]
             )
             rec.expenses_count = expenses_count
 
@@ -118,7 +120,8 @@ class PettyCashManagement(models.Model):
         for record in self:
             # Filter the expenses that are in draft state and related to the current record
             report_expenses = record.expense_ids.filtered(
-                lambda expense: expense.state == "draft" and expense.petty_cash_management_id == record
+                lambda expense: expense.state == "draft"
+                and expense.petty_cash_management_id == record
             )
             # Sum the total amount of the report expenses
             record.expense_to_report = sum(report_expenses.mapped("total_amount"))
@@ -130,13 +133,13 @@ class PettyCashManagement(models.Model):
         Compute the total amount of expenses that need to be approved for each record.
         """
         for record in self:
-            # Filter the expenses that are reported and belong to the current 
+            # Filter the expenses that are reported and belong to the current
             # record's petty cash management
             approve_expenses = record.expense_ids.filtered(
                 lambda expense: expense.state == "reported"
                 and expense.petty_cash_management_id == record
             )
-            # Sum the total amount of the approved expenses and assign it 
+            # Sum the total amount of the approved expenses and assign it
             # to the field expenses_to_approve
             record.expenses_to_approve = sum(approve_expenses.mapped("total_amount"))
 

@@ -18,7 +18,7 @@
                         decoration-info="petty_cash_states == 'draft'"
                         widget="badge"
                         optional="show"
-                    />
+                        />
                     <field name="refund_account_id" />
                     <field name="activity_ids" widget="list_activity" optional="show" />
                 </tree>
