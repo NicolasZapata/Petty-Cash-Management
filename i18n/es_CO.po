@@ -287,7 +287,7 @@ msgstr "Caja chica abierta"
 #: model:ir.ui.menu,name:petty_cash_management.menu_petty_cash_management_tree
 #: model_terms:ir.ui.view,arch_db:petty_cash_management.view_petty_cash_management_form
 msgid "Petty Cash Management"
-msgstr "Gestión de caja chica"
+msgstr "Caja Chica"
 
 #. module: petty_cash_management
 #: model:ir.model.fields,field_description:petty_cash_management.field_petty_cash_management__petty_cash_states

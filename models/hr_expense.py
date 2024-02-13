@@ -7,7 +7,7 @@ class HrExpense(models.Model):
     _description = "HrExpense"
 
     petty_cash_management_id = fields.Many2one(
-        "petty.cash.management", string="Petty Cash Management", required="True"
+        "petty.cash.management", string="Petty Cash", required="True"
     )
 
     # TODO: Ajust for filter two petty cashes and get an validation error
